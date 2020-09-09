@@ -70,24 +70,24 @@ const onBackDropClick = (event) => {
   }
 };
 
-const onRightBtnClick = (event) => {
-  if (event.code === "ArrowRight") {
-    activeIndex += 1;
-    const activeImagePlus = images.map((image, index, array) => {
-      return (modalWindow.src = array[activeIndex + 1].original);
-    });
-    // console.log(activeIndex);
-  }
-};
+// const onRightBtnClick = (event) => {
+//   if (event.code === "ArrowRight") {
+//     activeIndex += 1;
+//     const activeImagePlus = images.map((image, index, array) => {
+//       return (modalWindow.src = array[activeIndex + 1].original);
+//     });
+//     console.log(activeIndex);
+//   }
+// };
 
-const onLeftClick = (event) => {
-  if (event.code === "ArrowLeft") {
-    activeIndex -= 1;
-    const activeImageMinus = images.map((image, index, array) => {
-      return (modalWindow.src = array[activeIndex - 1].original);
-    });
-  }
-};
+// const onLeftClick = (event) => {
+//   if (event.code === "ArrowLeft") {
+//     activeIndex -= 1;
+//     const activeImageMinus = images.map((image, index, array) => {
+//       return (modalWindow.src = array[activeIndex - 1].original);
+//     });
+//   }
+// };
 
 const onArrowsClick = (event) => {
   if (event.code === "ArrowRight") {
