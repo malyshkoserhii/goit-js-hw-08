@@ -50,9 +50,6 @@ const onOpenModal = () => {
   activeIndex = Number(event.target.dataset.index);
   console.log("activeIndex: ", activeIndex);
   console.log("curentPictureSource: ", event.target.dataset.source);
-  // const activeImage = images.map(function (element, index, arr) {
-
-  // });
 };
 
 const onCloseModal = () => {
@@ -76,24 +73,44 @@ const onBackDropClick = (event) => {
 const onRightBtnClick = (event) => {
   if (event.code === "ArrowRight") {
     activeIndex += 1;
-    const activeImage = images.map(function (image, index, arr) {
-      return (modalWindow.src = arr[index].original);
+    const activeImagePlus = images.map((image, index, array) => {
+      return (modalWindow.src = array[activeIndex + 1].original);
     });
-    console.log(activeIndex);
+    // console.log(activeIndex);
   }
 };
 
 const onLeftClick = (event) => {
   if (event.code === "ArrowLeft") {
     activeIndex -= 1;
-    console.log(activeIndex);
+    const activeImageMinus = images.map((image, index, array) => {
+      return (modalWindow.src = array[activeIndex - 1].original);
+    });
   }
 };
 
+const onArrowsClick = (event) => {
+  if (event.code === "ArrowRight") {
+    activeIndex += 1;
+    const activeImagePlus = images.map((image, index, array) => {
+      return (modalWindow.src = array[activeIndex + 1].original);
+    });
+  }
+
+  if (event.code === "ArrowLeft") {
+    activeIndex -= 1;
+    const activeImageMinus = images.map((image, index, array) => {
+      return (modalWindow.src = array[activeIndex - 1].original);
+    });
+  }
+};
+
+galleryRef.addEventListener("keydown", onArrowsClick);
+
 galleryRef.addEventListener("click", onImageClick);
 
-galleryRef.addEventListener("keydown", onRightBtnClick);
-galleryRef.addEventListener("keydown", onLeftClick);
+// galleryRef.addEventListener("keydown", onRightBtnClick);
+// galleryRef.addEventListener("keydown", onLeftClick);
 
 closeModalBtn.addEventListener("click", onCloseModal);
 backDrop.addEventListener("click", onBackDropClick);
