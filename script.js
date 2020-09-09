@@ -1,4 +1,5 @@
 import images from "./gallery-items.js";
+import galleryItems from "./gallery-items.js";
 
 const galleryRef = document.querySelector(".js-gallery");
 const lightbox = document.querySelector(".js-lightbox");
@@ -7,8 +8,6 @@ const closeModalBtn = document.querySelector(
   'button[data-action="close-lightbox"]'
 );
 const backDrop = document.querySelector(".lightbox__content");
-
-let activeIndex;
 
 const createGallery = (image) => {
   const galleryItemRef = document.createElement("li");
@@ -46,10 +45,6 @@ const onOpenModal = () => {
   window.addEventListener("keydown", onPressEscape);
   lightbox.classList.add("is-open");
   modalWindow.src = event.target.dataset.source;
-
-  activeIndex = Number(event.target.dataset.index);
-  console.log("activeIndex: ", activeIndex);
-  console.log("curentPictureSource: ", event.target.dataset.source);
 };
 
 const onCloseModal = () => {
@@ -70,47 +65,32 @@ const onBackDropClick = (event) => {
   }
 };
 
-// const onRightBtnClick = (event) => {
-//   if (event.code === "ArrowRight") {
-//     activeIndex += 1;
-//     const activeImagePlus = images.map((image, index, array) => {
-//       return (modalWindow.src = array[activeIndex + 1].original);
-//     });
-//     console.log(activeIndex);
-//   }
-// };
-
-// const onLeftClick = (event) => {
-//   if (event.code === "ArrowLeft") {
-//     activeIndex -= 1;
-//     const activeImageMinus = images.map((image, index, array) => {
-//       return (modalWindow.src = array[activeIndex - 1].original);
-//     });
-//   }
-// };
-
-const onArrowsClick = (event) => {
+const onRightArrowClick = (event) => {
   if (event.code === "ArrowRight") {
-    activeIndex += 1;
-    const activeImagePlus = images.map((image, index, array) => {
-      return (modalWindow.src = array[activeIndex + 1].original);
-    });
-  }
-
-  if (event.code === "ArrowLeft") {
-    activeIndex -= 1;
-    const activeImageMinus = images.map((image, index, array) => {
-      return (modalWindow.src = array[activeIndex - 1].original);
-    });
+    const activeIndex = galleryItems.findIndex(
+      (element) => element.original === modalWindow.src
+    );
+    modalWindow.src =
+      activeIndex < galleryItems.length - 1
+        ? galleryItems[activeIndex + 1].original
+        : galleryItems[0].original;
   }
 };
 
-galleryRef.addEventListener("keydown", onArrowsClick);
+const onLeftArrowClick = (event) => {
+  if (event.code === "ArrowLeft") {
+    const activeIndex = galleryItems.findIndex(
+      (element) => element.original === modalWindow.src
+    );
+    modalWindow.src =
+      activeIndex === 0
+        ? galleryItems[galleryCards.length - 1].original
+        : galleryItems[activeIndex - 1].original;
+  }
+};
 
 galleryRef.addEventListener("click", onImageClick);
-
-// galleryRef.addEventListener("keydown", onRightBtnClick);
-// galleryRef.addEventListener("keydown", onLeftClick);
-
+galleryRef.addEventListener("keydown", onRightArrowClick);
+galleryRef.addEventListener("keydown", onLeftArrowClick);
 closeModalBtn.addEventListener("click", onCloseModal);
 backDrop.addEventListener("click", onBackDropClick);
